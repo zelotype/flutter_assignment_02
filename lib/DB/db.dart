@@ -36,13 +36,13 @@ class TodoProvider {
   Future open(String path) async {
     db = await openDatabase(path, version: 1,
         onCreate: (Database db, int version) async {
-          await db.execute('''
+      await db.execute('''
 create table $tableTodo ( 
   $columnId integer primary key autoincrement, 
   $columnTitle text not null,
   $columnDone integer not null)
 ''');
-        });
+    });
   }
 
   Future<Todo> insert(Todo todo) async {
@@ -72,8 +72,10 @@ create table $tableTodo (
 
   Future<List<Todo>> getAll() async {
     await this.open("todo.db");
-    var result = await db.query(tableTodo, columns: [columnId, columnTitle, columnDone]);
-    List<Todo> todoList = result.isNotEmpty ? result.map((c) => Todo.fromMap(c)).toList() : [];
+    var result =
+        await db.query(tableTodo, columns: [columnId, columnTitle, columnDone]);
+    List<Todo> todoList =
+        result.isNotEmpty ? result.map((c) => Todo.fromMap(c)).toList() : [];
     return todoList;
   }
 

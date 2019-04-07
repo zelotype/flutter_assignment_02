@@ -61,22 +61,18 @@ class main_pageState extends State<main_page> {
             },
           ),
           body: _state == 0
-              ?
-              Container(
+              ? Container(
                   child: FutureBuilder<List<Todo>>(
                       future: todo.getAll(),
                       builder: (BuildContext context,
                           AsyncSnapshot<List<Todo>> snapshot) {
                         task = [];
-                        //check before load data
                         if (snapshot.hasData) {
-                          //add items in db to list
                           for (var items in snapshot.data) {
                             if (items.done == false) {
                               task.add(items);
                             }
                           }
-                          //have a data yet? yes!
                           return task.length != 0
                               ? ListView.builder(
                                   itemCount: task.length,
@@ -107,22 +103,18 @@ class main_pageState extends State<main_page> {
                         }
                       }),
                 )
-              :
-              Container(
+              : Container(
                   child: FutureBuilder<List<Todo>>(
                       future: todo.getAll(),
                       builder: (BuildContext context,
                           AsyncSnapshot<List<Todo>> snapshot) {
                         complete = [];
-                        //check before load data
                         if (snapshot.hasData) {
-                          //add items in db to list
                           for (var items in snapshot.data) {
                             if (items.done == true) {
                               complete.add(items);
                             }
                           }
-                          //have a data yet? yes!
                           return complete.length != 0
                               ? ListView.builder(
                                   itemCount: complete.length,
@@ -143,7 +135,6 @@ class main_pageState extends State<main_page> {
                                     );
                                   },
                                 )
-                              //Nope
                               : Center(
                                   child: Text("No Data Found.."),
                                 );
